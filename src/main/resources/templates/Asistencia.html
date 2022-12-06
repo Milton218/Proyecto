@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Control de Asistencia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+          crossorigin="anonymous">
+</head>
+<body background= "img/backg.jpg">
+
+<nav class="navbar navbar-expand-lg " style="background-color: #0F53AB   ; height: 100px" >
+    <img src="img/logo-usb.png" height="70px" width="120px">
+    <div class="container-fluid wi">
+        <a class="navbar-brand link-light" style="font-size: 40px"  href="#">Registro Asistencia</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a style="font-size: 30px" class="nav-link active link-light" aria-current="page" href="/">Pricipal</a>
+                </li>
+                <li class="nav-item">
+                    <a style="font-size: 30px; color: red" class="nav-link active " aria-current="page" href="/Supervisor">Supervisor</a>
+                </li>
+                <li class="nav-item">
+                    <a style="font-size: 30px; color: red" class="nav-link active " aria-current="page" href="#">Asistencia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active link-light " style="font-size: 30px; " aria-current="page" href="/Docente">Docente</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active link-light" style="font-size: 30px" aria-current="page" href="/Estudiante">Estudiante</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active link-light" style="font-size: 30px" aria-current="page" href="/Horario">Horario</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<br/>
+<div class="container text-center justify-content-md-end">
+    <form class="row row-cols-lg-auto g-3 align-items-right justify-content-md-end" th:action="@{/Asistencia}">
+        <div class="col-12">
+            <div class="form-group mb-2">
+                <label style="font-size: 30px">Buscar : </label>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="text" name="palabraClave" class="form-control" id="palabraClave" th:value="${palabraClave}" placeholder="Digite el valor a buscar" required>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-secondary mb-2" value="Buscar">
+        &nbsp;&nbsp;
+        <input type="button" class="btn btn-secondary mb-2" value="Limpiar" onclick="limpiarCampos()">
+
+    </form>
+    <a class="nav-link link-light" style="background: #0F53AB; font-size: 40px" href="/nuevoa">Agregar Asistencia</a>
+    <br/>
+    <table class="table table-light table-borderless" border="2" style="font-size: 15px">
+        <thead class="table link-light"style="background-color: #0F53AB" >
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Horario</th>
+            <th scope="col">Dia</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Docente</th>
+            <th scope="col">Materia</th>
+            <th scope="col">Carrera</th>
+            <th scope="col">Paralelo</th>
+            <th scope="col">Semestre</th>
+            <th scope="col">CANT. Estudiantes</th>
+            <th scope="col">OBS</th>
+            <th scope="col">Usuario Registrado</th>
+            <th scope="col">Acciones</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider ui-icon-background">
+        <tr th:each="asistencia : ${listaAsistencia}">
+            <td th:text="${asistencia.id_a}"></td>
+            <td th:text="${asistencia.horario}"></td>
+            <td th:text="${asistencia.dia}"></td>
+            <td th:text="${asistencia.fecha}"></td>
+            <td th:text="${asistencia.docente}"></td>
+            <td th:text="${asistencia.materia}"></td>
+            <td th:text="${asistencia.carrera}"></td>
+            <td th:text="${asistencia.paralelo}"></td>
+            <td th:text="${asistencia.semestre}"></td>
+            <td th:text="${asistencia.cantidad_estudiantes}"></td>
+            <td th:text="${asistencia.obs}"></td>
+            <td th:text="${asistencia.usuario_registro}"></td>
+
+            <td>
+                <a class="btn btn-secondary" th:href="@{'/editar/' + ${asistencia.id_a}}">Editar</a>
+                &nbsp;
+                <a class="btn btn-secondary" th:href="@{'/eliminar/' + ${asistencia.id_a}}">Eliminar</a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    function limpiarCampos(){
+        window.location='/Asistencia';
+    }
+</script>
+</body>
+</html>
